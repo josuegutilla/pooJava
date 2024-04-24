@@ -1,7 +1,12 @@
+import abstracao.Circle;
+import abstracao.Color;
+import abstracao.Rectangle;
+import abstracao.Shape;
 import model.ImportedProduct;
 import model.Product;
 import model.UsedProduct;
 
+import java.awt.font.FontRenderContext;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,6 +49,46 @@ public class Main {
         System.out.println("PRICE TAGS: ");
         for (Product product : list) {
             System.out.println(product.priceTag());
+        }
+
+        System.out.println("--------------------------------");
+
+        // exercicio abstracao:
+        List<Shape> listShape = new ArrayList<>();
+
+        System.out.print("Enter the number of shapes: ");
+        int quantity = sc.nextInt();
+
+        for (int x = 1; x <= quantity; x++) {
+            System.out.println("Shape #" + x + " data:");
+
+            System.out.print("Rectangle or Circle (r/c)? ");
+            char shapeForm = sc.next().charAt(0);
+
+            System.out.print("Color (BLACK, BLUE, RED): ");
+            Color color = Color.valueOf(sc.next());
+
+            if (shapeForm == 'r') {
+                System.out.print("Width: ");
+                double width = sc.nextDouble();
+                System.out.print("Height: ");
+                double height = sc.nextDouble();
+
+                listShape.add(new Rectangle(color, height, width));
+            }
+            else {
+                System.out.print("Radius: ");
+                double radius = sc.nextDouble();
+
+                listShape.add(new Circle(color, radius));
+            }
+        }
+
+        System.out.println();
+        System.out.println("SHAPE AREAS:");
+
+        for (Shape shape : listShape) {
+            System.out.println(shape.area());
         }
 
         sc.close();

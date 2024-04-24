@@ -1,0 +1,7 @@
+package abstracao;
+
+public enum Color {
+    BLACK,
+    BLUE,
+    RED;
+}
