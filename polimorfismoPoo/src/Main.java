@@ -2,6 +2,9 @@ import abstracao.Circle;
 import abstracao.Color;
 import abstracao.Rectangle;
 import abstracao.Shape;
+import abstracaoExercicio.Pessoa;
+import abstracaoExercicio.PessoaFisica;
+import abstracaoExercicio.PessoaJuridica;
 import model.ImportedProduct;
 import model.Product;
 import model.UsedProduct;
@@ -51,7 +54,9 @@ public class Main {
             System.out.println(product.priceTag());
         }
 
+
         System.out.println("--------------------------------");
+
 
         // exercicio abstracao:
         List<Shape> listShape = new ArrayList<>();
@@ -90,6 +95,47 @@ public class Main {
         for (Shape shape : listShape) {
             System.out.println(shape.area());
         }
+
+
+        System.out.println("--------------------------------");
+
+
+        List<Pessoa> listPagadores = new ArrayList<>();
+
+        System.out.print("Enter the number of tax payers: ");
+        int totalPagadores = sc.nextInt();
+
+        for (int x = 1; x <= totalPagadores; x++) {
+            System.out.println("Tax payer #" + x + " data:");
+            System.out.print("Individual or company (i/c)?");
+            char tipoPagador = sc.next().charAt(0);
+            System.out.print("Name: ");
+            String name = sc.next();
+            System.out.print("Anual income: ");
+            double rendaAnual = sc.nextDouble();
+            if (tipoPagador == 'i') {
+                System.out.print("Health expenditures: ");
+                double gastoSaude = sc.nextDouble();
+                listPagadores.add(new PessoaFisica(name, rendaAnual, gastoSaude));
+            }
+            else {
+                System.out.print("Number of employees: ");
+                int numberEmployee = sc.nextInt();
+                listPagadores.add(new PessoaJuridica(name, rendaAnual, numberEmployee));
+            }
+        }
+
+        double sum = 0.0;
+        System.out.println();
+        System.out.println("TAXES PAID:");
+        for (Pessoa p : listPagadores) {
+            double tax = p.calcImposto();
+            System.out.println(p.getNome() + " $" + p.calcImposto());
+            sum += tax;
+        }
+
+        System.out.println();
+        System.out.println("TOTAL TAXES: $ " + sum);
 
         sc.close();
     }
